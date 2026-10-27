@@ -1,5 +1,39 @@
 <?php
 
+class Person {
+    protected $nama;  
+
+    public function __construct($nama) {
+        $this->nama = $nama;
+    }
+
+    public function getNama() {
+        return $this->nama;
+    }
+
+    public function tampilkanInfo() {
+        echo "Nama : {$this->nama} <br>";
+    }
+}
+
+class Anggota extends Person {
+    private $nim;
+
+    public function __construct($nama, $nim) {
+        parent::__construct($nama);
+        $this->nim = $nim;
+    }
+
+    public function getNim() {
+        return $this->nim;
+    }
+
+    public function tampilkanInfo() {
+        parent::tampilkanInfo();
+        echo "NIM : {$this->nim} <br>";
+    }
+}
+
 class Buku {
     private $judul;
     private $idBuku;
@@ -26,6 +60,14 @@ class Buku {
         return $this->stok;
     }
 
+    public function setJudul($judulBaru) {
+        if (!empty($judulBaru)) {
+            $this->judul = $judulBaru;
+        } else {
+            echo "Judul tidak boleh kosong.<br>";
+        }
+    }
+
     public function kurangiStok() {
         if ($this->stok > 0) {
             $this->stok--;
@@ -43,28 +85,6 @@ class Buku {
         echo "ID Buku : {$this->idBuku} <br>";
         echo "Penulis : {$this->penulis} <br>";
         echo "Stok : {$this->stok} <br>";
-    }
-}
-
-class Anggota {
-    private $nama;
-    private $nim;
-
-    public function __construct($nama, $nim) {
-        $this->nama = $nama;
-        $this->nim = $nim;
-    }
-
-    public function getNama() {
-        return $this->nama;
-    }
-    public function getNim() {
-        return $this->nim;
-    }
-
-    public function tampilkanInfo() {
-        echo "Nama : {$this->nama} <br>";
-        echo "NIM : {$this->nim} <br>";
     }
 }
 
@@ -110,7 +130,6 @@ class Peminjaman {
     }
 }
 
-// Uji coba
 $buku = new Buku("Pemrograman PHP", "B001", "Andi", 1);
 $anggota = new Anggota("Arys", "250030639");
 
